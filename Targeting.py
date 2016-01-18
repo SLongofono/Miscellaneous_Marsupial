@@ -139,23 +139,15 @@ def getCircles():
 # They can be used to adjust for a skewed target plane if you're feeling particularly bored.
 
 def getRot(viewX, viewY, distance, targetX, targetY):
-	maxX = distance * math.tan(viewX)
-	maxY = distance * math.tan(viewY)
-	print "Height from center: ", maxY
-	print "Distance from target plane: ", distance
+	maxX = distance * math.tan(viewX) #Distance from center
+	maxY = distance * math.tan(viewY) #Height from center
 	pixelWidth = maxY/240
-	print "Pixel dimension: ", pixelWidth
 	xDist = math.fabs(320-targetX)*pixelWidth
 	yDist = math.fabs(240-targetY)*pixelWidth
-	print "Panning distance: ", xDist
-	print "Titling distance: ", yDist
 	xRot = math.atan(xDist/distance)
 	yRot = math.atan(yDist/distance)
 	xRot = xRot * (180/math.pi)
 	yRot = yRot *(180/math.pi)
-
-	print "Pan rotation: ", xRot
-	print "Tilt rotation: ",yRot
 
 	#Since the servos have 90 as center, determine which way to rotate and adjust accordingly
 	if(targetX < 320):#left of center
@@ -175,9 +167,7 @@ print "Calibrating"
 distance = calibrate(23, 24)
 
 print "Finding circles..."
-#cX, cY = getCircles()
-cX = 1
-cY = 1
+cX, cY = getCircles()
 if(cX and cY):
 	print "Target found at ", cX, ", ", cY
 	try:
@@ -198,10 +188,6 @@ if(cX and cY):
 			GPIO.output(22, True)
 			time.sleep(3)
 			GPIO.output(22, False)				
-			cX += 20.0
-			cY += 15.0
-
-
 
 	except KeyboardInterrupt:
 		PWM_OBJ_X.ChangeDutyCycle(neutX)
