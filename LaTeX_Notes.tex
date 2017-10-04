@@ -1,0 +1,201 @@
+%This is a LaTeX template for homework assignments and Notes
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[letterpaper, margin=0.75in]{geometry}
+
+\begin{document}
+
+\title{Title of Paper}
+
+\section{Header level 1}
+Intro text
+
+% Bullet point section
+\begin{itemize}
+    \item This is a bullet point
+          This text is also in the bullet
+        
+    \item A
+    
+    \item B
+    
+\end{itemize}
+
+\subsection{Header level 2}
+Intro text
+
+
+\subsection{Another level 2 header}
+
+% Begin a numbered section (automatically starts with numbers, then letters, then roman numerals at each level of nesting)
+\begin{enumerate}
+    \item The first
+    \item The second
+    \item The third
+    \begin{figure}[h] % [h] means try to put it here if it looks good.  [h!] is more forceful.  Don't fight Latex too much, it knows best.
+        \centering % center this
+        \includegraphics[scale=0.5]{util_interactive.png} % uses the specified png (assumed in the root folder)
+        \caption{Utility Curve: Interactive} % Places a caption
+        \label{fig:u2} % Used to refer to this figure internally
+    \end{figure}
+\end{enumerate}
+
+This is a table, use online table generators because doing this by hand sucks
+\begin{table}[h]
+\centering
+\caption{Application Characteristics}
+\label{my-label2}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\multirow{2}{*}{\textbf{}} & \multicolumn{3}{c|}{\textbf{Category}}                                      \\ \cline{2-4} & \textbf{Info. Access} & \textbf{Telepresence} & \textbf{Dist.\& NAS} \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Application\\ Relationship\end{tabular}} & Client/Server & P2P & Varies                      \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Bandwidth\\ Symmetry\end{tabular}}       & Asymmetric            & Symmetric             & Symmetric                   \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}E2E\\ Synchronization\end{tabular}}      & None                  & Real-Time             & Varies                      \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+\subsubsection{This is a level 3 header}
+
+
+\section{Foo}
+
+\subsection*{This is a section with no numbering in its title}
+
+This section has some example text and uses inline math.  Don't bother memorizing beyond the basics, just google what you need when you need it.
+
+\begin{enumerate}
+    \item What is the difference between a host and an end system? List several different types of end systems. Is a web server an end system?
+    
+    There is no difference between a host system and an end system.  End systems might be a laptop, a mobile phone, a desktop computer, or a commercial server.  Yes, a web server is an end system.
+    
+    \item Suppose a user shares a 2 Mbps link. Also suppose each user transmits continuously at 1 Mbps when transmitting, but each user transmits only 20 percent of the time. (See the discussion of statistical multiplexing in Section 1.3.) When circuit switching is used, how many users can be supported?
+    
+    Circuit switching networks often interleave the data of individual endpoints, ie the first quarter from node 1, the second quarter from node 2, and so on.  In this case, 2 users are sharing a 2Mbps line, and when active, each needs bandwidth of 1 Mbps.  Thus in the ideal case, we say we can support $\frac{2 Mbps}{1 Mbps} = 2$ users.
+    
+    For the remainder of this problem, suppose packet switching is used. Why will there be essentially no queueing delay before the link if two or fewer user transmit at the same time? Why will there be a queueing delay if three users transmit at the same time?
+     
+    For a packet switched network, queueing delay occurs when a router is receiving packets faster than it can transmit them.  For the given network, assuming that there is no overhead in reading and directing the packets, the routers can transmit at 2 Mbps.  Thus while there are two or less users transmitting packets at a rate of 1 Mbps, the rate of packets incoming will never exceed the rate of outgoing packets.
+     
+    Find the probability that a given user is transmitting.
+     
+    It is given that any user is transmitting on average only 20 percent of the time.  So the probability that any given user is transmitting is 0.2.
+     
+    Suppose now there are three users. Find the probability that at any given time, all three users are transmitting simultaneously. Find the fraction of time during which the queue grows.
+
+    The probability that three users are all transmitting simultaneously is the product of the individual probabilities.  So $0.2^3=0.008$.  The fraction of time during which the queue grows will be 0.008 of every second that the network is live.
+    
+    \item Consider sending a packet from a source host to a destination host over a fixed route. List the delay components in the end-to-end delay. Which of these delays are constant and which are variable?
+    
+    The end-to-end delay includes transmission delay, queueing delay, propagation delay, and processing delay.  Propagation delay and transmission delay are functions of the physical layer and layer 2 and 3 equipment, so they are constant.  Queueing delay and processing delay depend on the network load, so they are variable.
+    
+    \item How long does is take a packet of length 1,000 bytes to propagate over a link of distance 2,500 km, propagation speed $2.5\cdot 10^8$ m/s, and a transmission rate 2 Mbps? More generally, how long does it take a packet of length L to propagate over a link of distance d, propagation speed s, and transmission rate R bps? Does this delay depend on packet length? Does this delay depend on transmission rate?
+    
+    Using the given information, we can calculate the propagation delay over the line:
+    
+    $d_{prop} = \frac{distance}{rate} = \frac{2.5\cdot 10^6[m]}{[2.5\cdot 10^8\frac{m}{sec}]} = 0.01 sec$
+    
+    This is how long it takes a single bit to traverse the line, under ideal conditions.
+    
+    The key word here is \emph{propagate}.  If we wanted to know how long it took to send and have received the packet in full, then transmission rate becomes important, and only the combination of the two will yield the correct answer.  However, since here we are only concerned with the propagation, we assume that the packet has finished propagating when its first bit reaches the destination.  Thus our propagation time is equal to the propagation delay of 0.01 seconds.
+    
+    In general, this delay is expressed as $\frac{d}{s}$, and is independent of packet length $L$ and transmission rate $R$.
+    
+    \item Suppose Host A wants to send a large file to Host B. The path from Host A to Host B has three links, of rates R1 = 500 kbps, R2 = 2 Mbps, and R3 = 1 Mbps. Assuming no other traffic in the network, what is the throughput for the file transfer?
+
+    The throughput is bottlenecked by the slowest link, in this case $R1$ at 500 kbps.
+    
+    Suppose the file is 4 million bytes. Dividing the file size by the throughput, roughly how long will it take to transfer the file to Host B?
+    
+    $\frac{32\cdot 10^6[bits]}{5\cdot 10^5 [\frac{bits}{sec}]} = 64$ seconds.
+    
+    If R2 is reduced to 100 kbps, what is the new throughput and time to transfer a 4 million byte file?
+    
+    The throughput is now bottlenecked by $R2$ at 100 kbps.  The file now takes:
+    
+    $\frac{32\cdot 10^6[bits]}{1\cdot 10^5 [\frac{bits}{sec}]} = 320$ seconds.
+
+    \item What are the five layers in the Internet protocol stack? What are the principal responsibilities of each of these layers?
+
+    The five layers are the physical, link, network, transport, and application layers.  The physical layer is made up of the physical medium over which information is sent, and the hardware which encodes, decodes, amplifies, and otherwise facilitates the transfer of information.  The link layer is concerned with ensuring that LPDUs were successfully sent or received at individual nodes in the network (e.g switches).  The network layer is concerned with identifying the destination for NPDUs and selecting the path over the link layer to take.  The transport layer is concerned with transporting TPDUs, including error checking, load control, optional reliability, from one application to another .  The application layer is concerned with user-facing programs with some need to generate or receive data from other application-layer programs.  All of the above have their own set of protocols and their own data units called PDUs.
+    
+    \item Which layers in the Internet protocol stack does a router process? Which layers does a link-layer switch process? Which layers does a host process?
+    
+    Routers generally handle from layer 3 downward, link-layer switches from level 2 downward.  Hosts typically process all 5 layers in one way or another, although they delegate lower-layer tasks to local lower-layer hardware.
+
+    \item Review the car-caravan analogy of propagation delay and transmission delay from section 1.4.  Assume a propagation speed of 100 km/hour, transmission speed of 1 car every 12 seconds, and that there are 10 cars in each caravan.  Suppose the caravan travels 150 km, beginning in front of one tollbooth, passing through a second tollbooth, and finishing just after a third tollbooth. What is the end-to-end delay?
+    
+    Assuming equally spaced toll booths, the distance between each one is half the total distance, or 75 km.  End-to-end delay at each link is the sum of transmission delay, queueing delay, processing delay, and propagation delay across that link.
+    
+    The propagation delay is the distance divided by the propagation speed:
+    
+    $d_{prop} = \frac{75\cdot 10^3 [m]}{[27.7778 \frac{m}{s}]} = 2699.9978 [sec] = 45 [min]$
+
+    The transmission delay is the length of the caravan divided by the rate of transmission.  Setting up a proportion:
+    
+    $d_{trans} = \frac{10[cars]}{0.0833 [\frac{cars}{sec}]} = 120 [sec] = 2 [min]$
+    
+    The analogy omits queueing and processing delay, so our total delay per link is $45 + 2 = 47 [min]$ per link.  There is an additional toll booth at the end, which adds an additional 2 minutes.  Thus the total end-to-end delay across the two links is $2\cdot 47[min] + 2 [min] = 96$ minutes.
+    
+    Now, redo the calculation assuming that there are eight cars in the caravan instead of ten.
+    
+    $d_{trans} = \frac{8[cars]}{0.0833 [\frac{cars}{sec}]} = 96 [sec] = 1.6 [min]$
+    
+    $d_{end-to-end} = 2 \cdot 46.6 [min] + 1.6 [min] = 94.8$ minutes.
+    
+    \item Express the propagation delay, $d_{prop}$, in terms of distance $m$ and propagation speed $s$.  Determine the transmission time of the packet, $d_{trans}$, in terms of packet length $L$ and transmission rate $R$.  Ignoring processing and queuing delays, obtain an expression for the end-to-end delay.
+
+    
+    $d_{prop} = \frac{m}{s}[sec]$
+    
+    $d_{trans} = \frac{L}{R}[sec]$
+    
+    $d_{end-to-end} = \frac{m}{s} + \frac{L}{R} [sec]$
+    
+    \item Suppose Host A begins to transmit a packet at time t = 0. At time t = dtrans, where is the last bit of the packet?
+    
+    By definition, the transmission rate is the amount of packets which can be transmitted per second.  thus the last bit of the packet has just left the sending party.  Note that transmission rate is also sometimes expressed as bits per second, and in that case you would need information about the packet width in bits, the distance traveled, and the propagation speed to accurately answer the question.
+    
+    \item Suppose dprop is greater than dtrans. At time t = dtrans, where is the first bit of the packet?
+    
+    Since the propagation speed is higher than the transmission speed (slower rates of transfer), the first bit is still somewhere in the transmission medium.  In this case, the propagation speed and distance of the link are necessary to answer exactly where the bit is.
+    
+    \item Suppose dprop is less than dtrans. At time t = dtrans, where is the first bit of the packet?
+    
+    Since propagation is faster than transmission, the bit is already at the destination at time t = $d_{trans}$.
+    
+    
+    \item Suppose $s = 2.5\cdot10^8$, L = 120 bits, and R = 56 kbps. Find the distance m so that dprop equals dtrans.
+    
+    Setting the expressions for each delay equal, we get:
+    
+    $\frac{L}{R}=\frac{m}{s}$
+    
+    solving for $m$, and plugging in the given figures:
+    
+    $m = \frac{s\cdot L}{R} = \frac{2.5\cdot 10^8 [\frac{m}{s}] \cdot 120 [bits]}{56\cdot 10^3 [\frac{bits}{sec}]} = 535714.2857[m]$
+    
+    \item Suppose you would like to urgently deliver 40 terabytes data from Boston to Los Angeles. You have available a 100 Mbps dedicated link for data transfer. Would you prefer to transmit the data via this link or instead use FedEx overnight delivery? Explain.
+    
+    40 terabytes is $32\cdot 10^{13}$ bits, so assuming a perfect, ideal transmission, transmitting over the dedicated link takes:
+    
+    $\frac{32\cdot 10^{13}}{10^8} = 32\cdot 10^5[sec] = 53333.34[min] = 888.89[hours] = 37.04[days]$.  Overnight freight is preferable.
+    
+    \item Suppose two hosts, A and B, are separated by 20,000 kilometers and are connected by a direct link of R = 2 Mbps. Suppose the propagation speed over the link is 2.5 * 108 meters/sec.  Find the bandwidth-delay product and interpret it.
+    
+    Bandwidth in this case is the rate $R$ of the link.  The bandwidth-delay product is the bandwidth multiplied by the propagation delay:
+    
+    $d_{prop} \cdot BW = \frac{2\cdot 10^7 [m]}{2.5\cdot 10^8 [\frac{m}{s}} \cdot 2\cdot 10^6 [\frac{bits}{sec}] = 16\cdot 10^4[bits]$
+    
+    The bandwidth-delay product represents the maximum, ideal amount of bits in the line at any given time.
+    
+    
+
+\end{enumerate}
+
+
+\end{document}
